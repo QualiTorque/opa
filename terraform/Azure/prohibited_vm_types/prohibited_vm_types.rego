@@ -16,7 +16,7 @@ contains(arr, elem){
 deny[reason] {
     resource := tfplan.resource_changes[_]
     get_basename(resource.provider_name) == "azurerm"
-    vm_type:= tfplan.resource_changes[_].change.after.vm_type
-    contains(data.prohibited_vm_types, vm_type)
-    reason:= concat("",["Invalid vm type: '", vm_type, "'. The prohibited vm types are: ", sprintf("%s", [data.prohibited_vm_types])])
+    vm_size:= tfplan.resource_changes[_].change.after.vm_size
+    contains(data.prohibited_vm_size, vm_size)
+    reason:= concat("",["Invalid vm type: '", vm_size, "'. The prohibited vm types are: ", sprintf("%s", [data.prohibited_vm_sizes])])
 }

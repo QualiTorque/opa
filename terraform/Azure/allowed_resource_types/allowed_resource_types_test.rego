@@ -3,7 +3,7 @@ package torque
 test_allowed_resource_types {
   result:= deny 
                 with input as data.plan_mock
-                with data.allowed_resource_types as ["azure_blob_storage"] 
+                with data.allowed_resource_types as ["blobrg"] 
   count(result) == 0
 }
 

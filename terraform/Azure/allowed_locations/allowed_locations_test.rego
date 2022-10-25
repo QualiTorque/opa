@@ -10,7 +10,7 @@ test_allowed_locations {
 test_deny_unsupported_location {
   result:= deny 
                 with input as data.plan_mock
-                with data.allowed_locations as ["eastus2", "westus2"] 
+                with data.allowed_locations as ["eastus1", "westus2"] 
   count(result) == 1
 }
 

@@ -4,12 +4,8 @@ import input as tfplan
 
 # --- Validate location ---
 
-get_location(provider_name) = location{
-    location_var_name:= trim_prefix(input.configuration.provider_config[provider_name].expressions.location.references[0], "var.")
-    location:= tfplan.variables[location_var_name].value
-}
-get_location(provider_name) = location{
-    location:= tfplan.configuration.provider_config[provider_name].expressions.location.constant_value
+get_location(provider_name) = location {
+    location:= trim_prefix(input.planned_values.root_module.resources[_].values.location, "var.")
 }
 
 get_basename(path) = basename{

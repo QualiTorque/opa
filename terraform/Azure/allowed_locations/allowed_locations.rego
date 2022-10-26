@@ -1,25 +1,15 @@
 package torque
-
 import input as tfplan
 
-# --- Validate location ---
-
-get_location(provider_name) = location {
-    location:= trim_prefix(input.planned_values.root_module.resources[_].values.location, "var.")
-}
-
-get_basename(path) = basename{
-    arr:= split(path, "/")
-    basename:= arr[count(arr)-1]
-}
-
-contains(arr, elem){
-    arr[_] == elem
-}
-
-deny[reason] {
-    provider_name:= get_basename(tfplan.resource_changes[_].provider_name) 
-    location:= get_location(provider_name)
-    not contains(data.allowed_locations, location)
-    reason:= concat("",["Invalid location: '", location, "'. The allowed locations are: ", sprintf("%s", [data.allowed_locations])])
+deny[result] {
+    allowed_locations_set:= {x | x:= data.allowed_locations[_]}
+    locations:= {r | r := tfplan.planned_values.root_module.resources[_].values.location}
+    diff:= allowed_locations_set - locations
+    print("allowed_locations: ", allowed_locations_set)
+    print("used_locations:    ", locations)
+    print("diff: ", diff)
+    result:= count(diff) > 0
+    print("is_diff: ", result)
+    
+    # result:= concat("", ["Invalid location: '", locations, "'. The allowed locations are: ", sprintf("%s", [data.allowed_locations])])
 }

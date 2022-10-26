@@ -28,7 +28,7 @@
                   "public_ip_address_id": null
                 }
               ],
-              "location": "eastus",
+              "location": "eastusXXX",
               "name": "tfvmex-nic",
               "resource_group_name": "tfvmex-resources",
               "tags": null,

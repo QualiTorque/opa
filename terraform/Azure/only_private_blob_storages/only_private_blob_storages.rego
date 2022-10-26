@@ -6,8 +6,8 @@ import input as tfplan
 
 deny[reason] {
     resources:= tfplan.resource_changes[_]
-    resources.type == "azure_blob_storage"
-    resources.change.after.acl != "private"
+    resources.type == "azurerm_storage_blob"
+    resources.change.after.container_access_type != "private"
     reason:= "Deployment of not private blob storage is not allowed"
 }
 

@@ -9,6 +9,13 @@ test_allowed_locations {
   count(reason) == 0
 }
 
+test_deny_unsupported_locations {
+  result:= deny 
+                with input as data.plan_mock
+                with data.allowed_locations as ["eastus2"] 
+  count(result) == 1
+}
+
 test_validate_deny_message {
   reason:= deny 
                 with input as data.plan_mock

@@ -1,22 +1,17 @@
 package torque
-
 import input as tfplan
 
 # --- Validate azure vm sizes ---
 
-get_basename(path) = basename{
-    arr := split(path, "/")
-    basename:= arr[count(arr)-1]
-}
-
-contains(arr, elem){
-    arr[_] == elem
-}
-
 deny[reason] {
-    resource := tfplan.resource_changes[_]
-    get_basename(resource.provider_name) == "azurerm"
-    vm_size:= tfplan.planned_values.root_module.resources.values.vm_size
-    contains(data.prohibited_vm_sizes, vm_size)
-    reason:= concat("",["Invalid vm size: '", vm_size, "'. The prohibited vm sizes are: ", sprintf("%s", [data.prohibited_vm_sizes])])
+    allowed_set:= { x | x:= data.prohibited_vm_sizes[_] }
+    results_set:= { r | r:= tfplan.resource_changes[_].change.after.vm_size }
+    diff:= results_set - allowed_set
+    
+    # print("allowed_set:       ", allowed_set)
+    # print("used_locations:    ", results_set)
+    # print("diff:              ", diff)
+
+    count(diff) > 0 # if true -> deny! and return this error ("reason") below
+    reason:= concat("",["Invalid VM size: '", sprintf("%s", [results_set]),"'. The prohibited VM sizes are: ", sprintf("%s", [allowed_set])])
 }

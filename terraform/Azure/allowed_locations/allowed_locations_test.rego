@@ -5,7 +5,6 @@ test_allowed_locations {
                 with input as data.plan_mock
                 with data.allowed_locations as ["eastus"]  
                 # with data.allowed_locations as ["eastusXXX"]  # uncomment this to fail the test 
-  
   count(reason) == 0
 }
 

@@ -3,7 +3,7 @@ import input as tfplan
 
 deny[reason] {
     allowed_set:= { x | x:= data.allowed_locations[_] }
-    results_set:= { r | r := tfplan.resource_changes[_].change.after.location }
+    results_set:= { r | r:= tfplan.resource_changes[_].change.after.location }
     diff:= results_set - allowed_set
     
     # print("allowed_set:       ", allowed_set)

@@ -1,15 +1,15 @@
 package torque
 import input as tfplan
 
-deny[result] {
+deny[reason] {
     allowed_locations_set:= {x | x:= data.allowed_locations[_]}
-    locations:= {r | r := tfplan.planned_values.root_module.resources[_].values.location}
-    diff:= allowed_locations_set - locations
-    print("allowed_locations: ", allowed_locations_set)
-    print("used_locations:    ", locations)
-    print("diff: ", diff)
-    result:= count(diff) > 0
-    print("is_diff: ", result)
+    locations:=  { r | r := tfplan.planned_values.root_module.resources[_].values.location }
+    diff:= locations - allowed_locations_set
     
-    # result:= concat("", ["Invalid location: '", locations, "'. The allowed locations are: ", sprintf("%s", [data.allowed_locations])])
+    # print("allowed_locations: ", allowed_locations_set)
+    # print("used_locations:    ", locations)
+    # print("diff: ", diff)
+
+    count(diff) > 0
+    reason:= concat("",["Invalid region: '", sprintf("%s", [locations]),"'. The allowed regions are: ", sprintf("%s", [allowed_locations_set])])
 }

@@ -1,28 +1,20 @@
 package torque
 
 test_allowed_locations {
-  result:= deny 
+  reason:= deny 
                 with input as data.plan_mock
-                with data.allowed_locations as ["eastus", "eastusXXX"]  
+                with data.allowed_locations as ["eastus"]  
+                # with data.allowed_locations as ["eastusXXX"]  # uncomment this to fail the test 
   
-  result == {false}
+  count(reason) == 0
 }
 
-test_deny_unsupported_location {
-  result:= deny 
+test_validate_deny_message {
+  reason:= deny 
                 with input as data.plan_mock
-                # with data.allowed_locations as ["eastus", "eastusXXX"] 
-                with data.allowed_locations as ["eastus1", "westus2"] 
-  
-  result == {true}
+                with data.allowed_locations as ["eastus2", "westus2"] 
+                # with data.allowed_locations as ["eastus"] # uncomment this line to fail the test
+  expected_deny_message:= "Invalid region: '{\"eastus\"}'. The allowed regions are: {\"eastus2\", \"westus2\"}"
+
+  reason[expected_deny_message]
 }
-
-# test_validate_deny_message {
-#   result:= deny 
-#                 with input as data.plan_mock
-#                 with data.allowed_locations as ["eastus2", "westus2"] 
-#   expected_deny_message:= "Invalid location: '{\"eastusXXX\", \"eastus\"'. The allowed locations are: [\"eastus2\", \"westus2\"]"
-
-#   result[expected_deny_message]
-#   print(expected_deny_message)
-# }

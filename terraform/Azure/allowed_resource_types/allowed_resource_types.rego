@@ -4,7 +4,7 @@ import input as tfplan
 
 deny[reason] {
     allowed_set:= { x | x:= data.allowed_resource_types[_] }
-    results_set:= { r | r := tfplan.planned_values.root_module.resources[_].type }
+    results_set:= { r | r := tfplan.resource_changes[_].type }
     diff:= results_set - allowed_set
     
     # print("allowed_set:       ", allowed_set)

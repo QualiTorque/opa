@@ -13,5 +13,5 @@ deny[reason] {
     # print("diff:              ", diff)
 
     count(diff) > 0 # if true -> deny! and return this error ("reason") below
-    reason:= concat("",["Invalid VM size: '", sprintf("%s", [results_set]),"'. The prohibited VM sizes are: ", sprintf("%s", [allowed_set])])
+    reason:= concat("",["Invalid VM size: '", sprintf("%s", [results_set]),"'. The prohibited VM sizes for Azure are: ", sprintf("%s", [allowed_set])])
 }

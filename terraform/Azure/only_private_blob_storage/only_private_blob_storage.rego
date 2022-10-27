@@ -9,11 +9,11 @@ deny[reason] {
     results_set:= { r | r:= tfplan.resource_changes[_].change.after.container_access_type }
     diff:= results_set - allowed_set
     
-    print("allowed_set:       ", allowed_set)
-    print("used_locations:    ", results_set)
-    print("diff:              ", diff)
+    # print("allowed_set:       ", allowed_set)
+    # print("used_locations:    ", results_set)
+    # print("diff:              ", diff)
 
     count(diff) > 0 # if true -> deny! and return this error ("reason") below
-    reason:= "Deployment of not private blob storage is not allowed"
+    reason:= "Deployment of a not private Azure blob storage is not allowed"
 }
 

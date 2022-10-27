@@ -7,7 +7,7 @@ test_allow_private_blob_storages {
 
 test_validate_deny_message {
   result:= deny with input as data.plan_mock_2
-  expected_deny_message:= "Deployment of not private blob storage is not allowed"
+  expected_deny_message:= "Deployment of a not private Azure blob storage is not allowed"
   result[expected_deny_message]
 }
 

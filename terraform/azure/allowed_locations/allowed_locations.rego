@@ -11,5 +11,5 @@ deny[reason] {
     # print("diff:              ", diff)
 
     count(diff) > 0 # if true -> deny! and return this error ("reason") below
-    reason:= concat("",["Invalid location: '", sprintf("%s", [results_set]),"'. The allowed Azure locations are: ", sprintf("%s", [allowed_set])])
+    reason:= concat("",["Invalid location: '", sprintf("%s", [array.concat([results_set[_]],[])]),"'. The allowed Azure locations are: ", sprintf("%s", [data.allowed_locations])])
 }

@@ -8,7 +8,7 @@ get_basename(path) = basename {
 }
 
 deny[reason] {
-    azure_resources:= [r | r := tfplan.resource_changes[_]; get_basename(r.provider_name) == "azurerm"]
+    azure_resources:= [r | r:= tfplan.resource_changes[_]; get_basename(r.provider_name) == "azurerm"]
 
     allowed_set:= { x | x:= data.allowed_resource_types[_] }
     results_set:= { t | t:= azure_resources[_].type }

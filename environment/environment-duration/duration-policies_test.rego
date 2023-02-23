@@ -3,12 +3,16 @@ package torque.environment
 import future.keywords.if
 
 test_max_duration_denied if {
-    result 
-            with input.duration_minutes as 350
-            with data.max_duration_minutes as 300
-            with data.duration_for_manual_minutes as 120
-    result.decision == "Denied"
-    result.reason == "environment duration exceeds max duration in 5 hours"
+    print("Something good");
+
+    value:= result 
+                with input.duration_minutes as 350
+                with data.max_duration_minutes as 300
+                with data.duration_for_manual_minutes as 120
+
+    print(value); 
+    value.decision == "Denied"
+    value.reason == "environment duration exceeds max duration in 5 hours"
 }
 
 # test_max_duration_denied_new_data_names {

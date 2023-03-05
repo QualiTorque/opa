@@ -107,7 +107,7 @@ result := {"decision": "Denied", "reason": "Max duration and duration for manual
 result = {"decision": "Denied", "reason": concat("", ["environment duration exceeds max duration of ", timespan, ""])} if {
     is_number(data.env_max_duration_minutes)
 	data.env_max_duration_minutes < input.duration_minutes
-	timespan := get_timespan_string(difference * 60000000000)
+	timespan := get_timespan_string(data.env_max_duration_minutes * 60000000000)
 }
 
 result = {"decision": "Manual", "reason": "environment duration requires approval"} if {

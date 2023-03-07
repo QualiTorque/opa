@@ -19,6 +19,14 @@ test_max_duration_manual_new_data_names {
     value.reason == "environment duration requires approval"
 }
 
+test_max_duration_approved_equal_values {
+    value := result 
+                          with input.duration_minutes as 120
+                          with data.env_max_duration_minutes as 300
+                          with data.env_duration_for_manual_approval_minutes as 300
+    value.decision == "Approved"
+}
+
 test_max_duration_approved_new_data_names {
     value := result 
                           with input.duration_minutes as 120

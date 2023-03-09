@@ -120,6 +120,6 @@ result = {"decision": "Manual", "reason": "environment duration requires approva
 result = {"decision": "Approved"} if {
     is_number(data.env_max_duration_minutes)
 	is_number(data.env_duration_for_manual_approval_minutes)
-    data.env_duration_for_manual_approval_minutes <= data.env_max_duration_minutes
+	data.env_max_duration_minutes > input.duration_minutes
 	data.env_duration_for_manual_approval_minutes > input.duration_minutes
 }

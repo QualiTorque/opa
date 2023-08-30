@@ -23,6 +23,6 @@ result = {"decision": "Denied", "reason": "Owner has reached the maximum number 
 }
 
 result = {"decision": "Approved"} if {
-    is_number(data.max_active_envs_in_space_per_owner)
-	data.max_active_envs_in_space_per_owner >= input.owner_active_environments_in_account + 1
+    is_number(data.max_active_envs_in_account_per_owner)
+	data.max_active_envs_in_account_per_owner >= input.owner_active_environments_in_account + 1
 }

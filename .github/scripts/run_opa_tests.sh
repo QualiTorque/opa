@@ -8,3 +8,4 @@ opa test ./terraform/azure/allowed_resource_types -v
 opa test ./terraform/azure/prohibited_vm_sizes -v
 opa test ./terraform/azure/only_private_blob_storage -v
 opa test ./environment/environment-duration -v
+opa test ./environment/active-environments-per-owner -v

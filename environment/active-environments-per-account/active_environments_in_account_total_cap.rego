@@ -10,7 +10,7 @@ is_launch {
 }
 
 valid_cap {
-  to_number(data.max_active_environments_in_account[0])
+  to_number(data.max_active_environments_in_account)
 }
 
 result = {
@@ -25,10 +25,10 @@ result = {
   "decision": "Denied",
   "reason": sprintf(
     "Account-wide active environments cap exceeded: active=%v cap=%v",
-    [input.active_environments_in_account, to_number(data.max_active_environments_in_account[0])]
+    [input.active_environments_in_account, to_number(data.max_active_environments_in_account)]
   )
 } {
   is_launch
   valid_cap
-  input.active_environments_in_account >= to_number(data.max_active_environments_in_account[0])
+  input.active_environments_in_account >= to_number(data.max_active_environments_in_account)
 }
